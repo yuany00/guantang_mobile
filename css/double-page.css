@@ -1,0 +1,280 @@
+/* Basic sample */
+
+html{
+     width:100%;
+    
+}
+
+
+body{
+  width: 1000px
+	min-width:1000px;
+
+	overflow: auto;
+	background-color: white;
+	background-image:url("background1.png");
+	margin:auto;
+	padding:10px;
+}
+
+
+.hover{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transition: .5s ease;
+  
+}
+.bgmusic:hover .hover{
+ 	 opacity: 1;
+     }
+
+
+
+.flipbook-viewport{
+	overflow:visible;
+  min-width: 1100px;
+	width:100%;
+	height:100%;
+}
+
+.flipbook-viewport .container{
+	position:absolute;
+	top:200px;
+	left:0px;
+	margin:auto;
+	
+
+}
+
+.flipbook-viewport .flipbook{
+	width:1200px;
+	height:600px;
+	left:200px;
+	top:10px;
+	
+}
+
+.flipbook-viewport .page{
+
+	width:600px;
+	height:600px;
+	
+	
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+}
+
+.flipbook .page{
+	-webkit-box-shadow:0 0 20px rgba(0,0,0,0.2);
+	-moz-box-shadow:0 0 20px rgba(0,0,0,0.2);
+	-ms-box-shadow:0 0 20px rgba(0,0,0,0.2);
+	-o-box-shadow:0 0 20px rgba(0,0,0,0.2);
+	box-shadow:0 0 20px rgba(0,0,0,0.2);
+}
+
+.flipbook-viewport .page img{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	margin:0;
+}
+
+.flipbook-viewport .shadow{
+	-webkit-transition: -webkit-box-shadow 0.5s;
+	-moz-transition: -moz-box-shadow 0.5s;
+	-o-transition: -webkit-box-shadow 0.5s;
+	-ms-transition: -ms-box-shadow 0.5s;
+
+	-webkit-box-shadow:0 0 20px #ccc;
+	-moz-box-shadow:0 0 20px #ccc;
+	-o-box-shadow:0 0 20px #ccc;
+	-ms-box-shadow:0 0 20px #ccc;
+	box-shadow:0 0 20px #ccc;
+}
+
+.flipbook-viewport .double{
+	width:1000px;
+	height:500px;
+	background-size:100% 100%;
+}
+.flipbook-viewport h2{
+	position:absolute; 
+	top:20px; 
+	left:60px;
+}
+
+.flipbook-viewport p{
+	text-align: justify;
+	text-indent:50px;
+	font-size:17px;
+}
+
+
+
+
+.e-column {
+  top:500px;
+  float: left;
+  width: 30%;
+  padding: 10px;
+}
+
+/* Style the images inside the grid */
+.e-column img {
+  
+  opacity: 1; 
+  cursor: pointer; 
+}
+
+.e-column img:hover {
+  opacity: 0.5;
+  transform: scale(1.2,1.2);
+}
+
+/* Clear floats after the columns */
+.e-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The expanding image container */
+.image-window {
+  height: :200px;
+
+  position: absolute;
+  top:100px;
+  right:70px;
+  display: none;
+}
+
+/* Expanding image text */
+#imgtext {
+ 
+  text-align:justify;
+  position: absolute;
+  bottom: 0px;
+  right: 50px;
+  color: black;
+  font-size: 15px;
+  border:2px solid black;
+  background-color: white;
+}
+
+/* Closable button inside the expanded image */
+.closebtn {
+ 
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+/*------------------------------------slider-gallery-----------------------------*/
+
+.mySlides img {
+  vertical-align: middle;
+ 
+}
+.s-row img{
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.image-gallery-window {
+  position:relative; ;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Container for image text */
+.caption {
+  text-align: center;
+  background-color: #222;
+  padding: 1px 1px;
+  color: white;
+}
+
+.s-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.s-column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+.image-frame{
+	height:200px;
+	position:relative;
+	overflow: hidden;
+	background-color:#222;
+}

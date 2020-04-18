@@ -1,0 +1,574 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+<meta name="viewport" content="width = device-width, initial-scale=1.0, user-scalable = no" />
+<script type="text/javascript" src="extras/jquery.min.1.7.js"></script>
+<script type="text/javascript" src="extras/modernizr.2.5.3.min.js"></script>
+<script type="text/javascript" src="lib/turn.min.js"></script>
+
+
+
+<style>
+
+
+.img-magnifier-window {
+  position:relative;
+}
+
+.img-magnifier-glass {
+  position: absolute;
+  bottom: 0px;
+
+  border: 3px solid #663300;
+  border-radius: 50%;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 100px;
+  height: 100px;
+
+
+
+
+</style>
+<script>
+function magnify(imgID, zoom) {
+  var img, glass, w, h, bw;
+  img = document.getElementById(imgID);
+  /*create magnifier glass:*/
+  glass = document.createElement("DIV");
+  glass.setAttribute("class", "img-magnifier-glass");
+  /*insert magnifier glass:*/
+  img.parentElement.insertBefore(glass, img);
+  /*set background properties for the magnifier glass:*/
+  glass.style.backgroundImage = "url('" + img.src + "')";
+  glass.style.backgroundRepeat = "no-repeat";
+  glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+  bw = 3;
+  w = glass.offsetWidth / 2;
+  h = glass.offsetHeight / 2;
+  /*execute a function when someone moves the magnifier glass over the image:*/
+  glass.addEventListener("mousemove", moveMagnifier);
+  img.addEventListener("mousemove", moveMagnifier);
+  /*and also for touch screens:*/
+  glass.addEventListener("touchmove", moveMagnifier);
+  img.addEventListener("touchmove", moveMagnifier);
+  function moveMagnifier(e) {
+    var pos, x, y;
+    /*prevent any other actions that may occur when moving over the image*/
+    e.preventDefault();
+    /*get the cursor's x and y positions:*/
+    pos = getCursorPos(e);
+    x = pos.x;
+    y = pos.y;
+    /*prevent the magnifier glass from being positioned outside the image:*/
+    if (x > img.width - (w / zoom)) {x = img.width - (w / zoom);}
+    if (x < w / zoom) {x = w / zoom;}
+    if (y > img.height - (h / zoom)) {y = img.height - (h / zoom);}
+    if (y < h / zoom) {y = h / zoom;}
+    /*set the position of the magnifier glass:*/
+    glass.style.left = (x - w) + "px";
+    glass.style.top = (y - h) + "px";
+    /*display what the magnifier glass "sees":*/
+    glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
+  }
+  function getCursorPos(e) {
+    var a, x = 0, y = 0;
+    e = e || window.event;
+    /*get the x and y positions of the image:*/
+    a = img.getBoundingClientRect();
+    /*calculate the cursor's x and y coordinates, relative to the image:*/
+    x = e.pageX - a.left;
+    y = e.pageY - a.top;
+    /*consider any page scrolling:*/
+    x = x - window.pageXOffset;
+    y = y - window.pageYOffset;
+    return {x : x, y : y};
+  }
+}
+
+//image expanding
+function myFunction(imgs) {
+  var expandImg = document.getElementById("expandedImg");
+  var imgText = document.getElementById("imgtext");
+  expandImg.src = imgs.src;
+  imgText.innerHTML = imgs.alt;
+  expandImg.parentElement.style.display = "block";
+}
+
+//image slider-gallery
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
+
+
+
+
+</head>
+
+<body >
+
+
+<div id="content">
+<div class="bg-object" >
+	<img src="pages/bird.gif" alt= "bird" style="position:absolute;width:400px;height: 438px; left:50px; top: 20px;">
+	<img src="pages/yinzhang.gif" alt="yinzhang"style="position:relative; width:100px;height: 100px;left:50px;bottom:-700px;">
+	<img src="cover/cloud3.gif" alt="cloud top" style="position:relative;top:20px;left:1100px;">
+	<img src="cover/cloud2.gif" alt="cloud top" style="position:absolute;top:30px;left:550px;">
+	<img src="pages/cloud right.png" alt="cloud right" style="position:relative;bottom:-750px;left:1000px;">
+	<img src="pages/cloud1.gif" alt="cloud left" style="position:absolute;top:350px;left:100px;">
+
+
+	<div class="text" style="position:absolute;left:350px;top:250px;display:block;">
+		<h1>The Fashion of Tang Dynasty</h1>
+
+		<p class="intro" style="position:relative;left:10px;top:30px;width: 350px;font-size: 20px;text-align: justify;text-indent: 50px;">Tang Dynasty costumes have become one of the important symbols of Tang culture with their colorful, innovative decoration techniques and gorgeous colors
+		</p>
+		<p class="intro" style="position:relative;left:10px;top:20px;width: 350px;font-size: 20px;text-align: justify;text-indent: 50px;">A famous Chinese designer Chu Yan and her group are committed to the artistic recreation of Tang Dynasty costumes. With reference to a large amount of historical data and through the study of Dunhuang frescoes, a large number of Tang Dynasty costumes have been recreated, allowing us to have a chance to glimpse the prosperous Tang Dynasty.
+		</p>
+	</div>
+
+</div>
+
+
+
+<div class="bgmusic">
+
+<audio src="zheliu.mp3" preload="meta" loop autoplay id="bgmusic"></audio>
+<img src="cover/stop.png" id="musicImg" alt="user" style="width: 50px; height:50px; right:20px; top:20px; position: fixed;">
+<div class="hover">
+	<img src="cover/shadow.gif" onClick="playnpause()" alt="user" style="width: 55px; height:55px; right:18px; top:18px; position: fixed;">
+
+</div>
+
+</div>
+
+
+
+<div class="flipbook-viewport" >
+	<div class="book-container" id='container'>
+		<div class="flipbook">
+			<div class="page" style="background-image:url(pages/cover-front.png)"></div>
+			<div class="page" style="background-image:url(pages/odd.png)">
+				<h2>Donor Frescoes</h2>
+				<div class="img-magnifier-window" style="left:40px;top:100px;">
+ 					 <img id="myimage" src="pages/donor_frescoes.jpg" width="260" height="400">
+				</div>
+				
+				<p style="font-size:17px;position:absolute;left:320px;top:100px; width:250px;">Dunhuang frescoes are the main components of Dunhuang art. They are rich in content, huge in scale, and exquisite in skill. They are best known of the Buddha grottoes, however, there is a kind of murals called donors in the frescoes, which have unique artistic value and research value. It is the donors in these murals that have been handed down from generation to generation, digging into grottoes, building Buddha statues, and painting murals, and finally created the brilliant and brilliant Dunhuang culture. Due to its completeness and continuity, these donor frescoes have become an important historical material for studying Tang Dynasty costumes.</p>
+				<p style="font-size:18px;position:absolute;left:50px;bottom:20px;width:250px; text-indent: 0px; border:2px solid black; background-color: white;padding: 2px;">Move the <b>len</b> on the bottom left corner. Can you find the<b> Donor</b>?</p>
+
+			</div>
+			<div class="page" style="background-image:url(pages/even.png)">
+				<p style="font-size:17px;position:absolute;left:150px;top:50px; width:350px;">Below the Buddhist stories frescoes, there are often men and women neatly arranged in rows, the small ones are only a few inches, and the heights are up to a few feet. Among them are powerful governors and ordinary civilians. These figures have all contributed funds for the construction of the cave. They painted their images on the wall, indicating that the Buddha statues of the cave were all supported by them, so they are called cave owners, and they are also called donors.</p>
+				<p style="font-size:17px;position:absolute;left:150px;top:300px; width:350px;">In order to devoutly worship the Buddha, always provide support and merit, and also show their own fame and retain their names for future generations. Portraits of these donors are painted in their caves. These portraits are called donor portraits. These precious portraits record the dress status of people of different identities and positions on different occasions and provide precious historical data for the restoration and recreation of Tang Dynasty costumes.</p>
+				<div class="e-column" style="top:200px;">
+  					<div class="e-row">
+   						 <img src="pages/donor1.jpg" alt="Donor portrait of Cao Yuande. Mogao Cave 100,10th" style="width:50%; margin-top: 50px; " onclick="myFunction(this);">
+  					</div>
+  					<div class="e-row">
+   						 <img src="pages/donor2.jpg" alt="Donor Portrait of Caoyijin. Yulin Cave 16" style="width:50%" onclick="myFunction(this);">
+  					</div>
+  					<div class="e-row">
+  					    <img src="pages/donor3.png" alt="King of Khotab and retinue, Mogao Cave 98" style="width:50%" onclick="myFunction(this);">
+  					</div>
+  					<div class="e-row">
+    					<img src="pages/donor4.png" alt="Urgur retinue, Mogao Cave 98" style="width:50%" onclick="myFunction(this);">
+  					</div>
+				</div>
+
+				<div class="image-window">
+ 					 <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+  					<img id="expandedImg" style="height:80%;margin-left: auto;margin-right: auto; display:">
+  					<div id="imgtext"></div>
+					</div>
+
+				
+			</div>
+			<div class="page" style="background-image:url(pages/odd.png)">
+				<h2> Designer</h2>
+				 <img src="pages/chuyan.jpg" alt="chuyan" style="width:80%;position: absolute; bottom: 50px;left:50px;" >
+				 <p style="font-size:17px;position:absolute;left:50px;top:80px; width:450px;"><b>Chu Yan</b>, currently an associate professor at the School of Clothing Art and Engineering, Beijing Institute of Clothing Technology. She and her group have been doing research on the restoration and artistic recreation of Chinese traditional clothes along the Silk Road. From analyzing and measuring the antiques to drawing, dyeing, weaving, pattern making, and sewing, she eventually recreated costumes of Tang, which lead us to revisit the open, confident and integrating prosperous period of the Tang Dynasty.</p>
+               
+           </div>
+			<div class="page" style="background-image:url(pages/even.png)">
+							<h2>Plant Dyestuff</h2>
+				
+							<div class="image-gallery-window"  style="width: 400px; height:300px;overflow:hidden;top:80px;left:80px;">
+							  <div class="mySlides">
+							    <div class="numbertext">1 / 6</div>
+							    <div class="image-frame" >
+							      <img src="pages/safflower.jpg" style="width:100%">
+							    </div>
+							  </div>
+
+							  <div class="mySlides">
+							    <div class="numbertext">2 / 6</div>
+							    <div class="image-frame">
+							    <img src="pages/common_madder.jpg" style="width:100%">
+								</div>
+							  </div>
+
+							  <div class="mySlides">
+							    <div class="numbertext">3 / 6</div>
+							    <div class="image-frame" >
+							    <img src="pages/sappanwood.png" style="width:100%">
+							    </div>
+							  </div>
+							    
+							  <div class="mySlides">
+							    <div class="numbertext">4 / 6</div>
+							    <div class="image-frame">
+							    <img src="pages/pomegranate_peels.jpg" style="width:100%">
+							    </div>
+							  </div>
+
+							  <div class="mySlides">
+							    <div class="numbertext">5 / 6</div>
+							    <div class="image-frame">
+							    <img src="pages/fruit_of_cape_jasmine.jpg" style="width:100%">
+							    </div>
+							  </div>
+							    
+							  <div class="mySlides">
+							    <div class="numbertext">6 / 6</div>
+							    <div class="image-frame">
+							    <img src="pages/woad_leafs.jpg" style="width:100%">
+								</div>
+							  </div>
+							    
+							  <a class="prev" onclick="plusSlides(-1)">❮</a>
+							  <a class="next" onclick="plusSlides(1)">❯</a>
+
+							  <div class="caption">
+							    <p id="caption"></p>
+							  </div>
+							  <div class="s-row">
+							    <div class="s-column">
+							      <img class="demo cursor" src="pages/safflower.jpg" style="width:100%" onclick="currentSlide(1)" alt="Red dye: Safflower">
+							    </div>
+							    <div class="s-column">
+							      <img class="demo cursor" src="pages/common_madder.jpg" style="width:100%" onclick="currentSlide(2)" alt="Red dye: Common Madder">
+							    </div>
+							    <div class="s-column">
+							      <img class="demo cursor" src="pages/sappanwood.png" style="width:100%" onclick="currentSlide(3)" alt="Red dye: Sappanwood">
+							    </div>
+							    <div class="s-column">
+							      <img class="demo cursor" src="pages/pomegranate_peels.jpg" style="width:100%" onclick="currentSlide(4)" alt="Yellow dye: Pomegranate Peels">
+							    </div>
+							    <div class="s-column">
+							      <img class="demo cursor" src="pages/fruit_of_cape_jasmine.jpg" style="width:100%" onclick="currentSlide(5)" alt="Yellow dye: Fruit of Cape Jasmine">
+							    </div>    
+							    <div class="s-column">
+							      <img class="demo cursor" src="pages/woad_leafs.jpg" style="width:100%" onclick="currentSlide(6)" alt="Blue dye: Woad Leafs">
+							    </div>
+							  </div>
+							</div>
+							<p style="position: absolute; top:380px;width:450px;left:50px;">The colors on ancient clothes are actually came from plant dyestuff. Compared with the chemical dyestuffs we used today,the ancient Chinese used plant dyestuffs, which were nontoxic and harmless and mostly made from edible plants or vegetables, as well as traditional medicines. Colors created by these dyes are very natural and hardly faded. They can even protect the clothes from insects and germs. Most importantly, they are a symbol of aesthetics for colors in Chinese traditions.</p>
+
+
+			</div>
+			<div class="page" style="background-image:url(pages/odd.png)">
+				<h2>Female Donor Costumes</h2>
+				<div class="img-magnifier-window" style="left:40px;top:80px;">
+ 					 <img id="myimage1" src="pages/Female-Donor-Portrait-on-the-east-wall-in-Mogao-Cave-98-restore1.png" width="200">
+				</div>
+				<p style="font-size:16px;position:absolute;left:40px;bottom:20px;width:200px; text-indent: 0px; border:2px solid black; background-color: white;padding: 2px; text-align: left;">Female Donor Portrait on the east wall in Mogao Cave 98, Five Dynasties (AD 907-960)</p>
+
+				<p style="position: absolute; top:120px;width:240px;left:280px;">Cao Yijin's female family wears a phoenix crown, a flower crown and a white horned crown. They have headdresses, all wear long skirts, and make up with a variety of flowers on their faces. The flowers and birds on their clothes represent the extremely precious embroidery art at that time. It is a dress for ladies of five dynasties to emulate the concubines of the Tang Dynasty.</p>
+				<img src="pages/wudai.png" alt="tag2" style="position:absolute;bottom:20px;right:0px;width: 150px">
+				
+			</div>
+			<div class="page" style="background-image:url(pages/even.png)">
+				<div class="img-magnifier-window" style="position:absolute;left:40px;top:80px;">
+ 					 <img id="myimage2" src="pages/Female-Donor-Portrait-on-the-east-wall-in-Mogao-Cave-98-recreation.JPG" height="400">
+				</div>
+				<img src="pages/face1.gif" alt="female donor1" style="position:absolute;top:80px;right:90px;height: 200px">
+				<img src="pages/body1.gif" alt="female donor1" style="position:absolute;top:280px;right:90px;height: 200px">
+				<img src="pages/tag.png" alt="tag2" style="position:absolute;bottom:50px;right:20px;width: 500px">
+
+			</div>
+			<div class="page" style="background-image:url(pages/odd.png)">
+				<div class="img-magnifier-window" style="left:40px;top:50px;">
+ 					 <img id="myimage3" src="pages/Uyghur-Princess-in-Mogao-Cave-61.png" width="200px">
+				</div>
+				<p style="font-size:16px;position:absolute;left:40px;bottom:20px;width:200px; text-indent: 0px; border:2px solid black; background-color: white;padding: 2px; text-align: left;">Uyghur Princess in Mogao Cave 61, Five Dynasties (AD 907-960)</p>
+
+				<p style="position: absolute; top:120px;width:240px;left:280px;">Cao Yijin's wife is Uighur Princess. She was dressed in a Ukrainian costume, wearing a peach-shaped crown, decorated with a Buyao, a sling on the back, a face with a flower makeup, a neck with multiple jewelry strings, a lapel with narrow sleeves and a large sleeve, and a delicate phoenix on the lapel and cuff Beautiful bird and flower pattern. It is very rare to see such delicate and vivid textile patterns in Dunhuang frescoes.</p>
+				<img src="pages/wudai.png" alt="tag2" style="position:absolute;bottom:20px;right:0px;width: 150px">
+			</div>
+			<div class="page" style="background-image:url(pages/even.png)">
+
+				<div class="img-magnifier-window" style="position:absolute;left:40px;top:80px;">
+ 					 <img id="myimage4" src="pages/Uyghur-Princess-in-Mogao-Cave-61-recreation.JPG" height="400" >
+				</div>
+				<img src="pages/princess-face.gif" alt="female donor2" style="position:absolute;top:80px;right:80px;height: 200px;">
+				<img src="pages/princess-body.gif" alt="female donor2" style="position:absolute;top:280px;right:80px;height: 200px;">
+				<img src="pages/tag.png" alt="tag2" style="position:absolute;bottom:50px;right:20px;width: 500px">
+			</div>
+			<div class="page" style="background-image:url(pages/odd.png)">
+				<div class="img-magnifier-window" style="left:40px;top:50px;">
+ 					 <img id="myimage5" src="pages/Female-Donor-Portrait-on-the-east-wall-in-Mogao-Cave-144.png" width="220px">
+				</div>
+				<p style="font-size:16px;position:absolute;left:40px;bottom:40px;width:200px; text-indent: 0px; border:2px solid black; background-color: white;padding: 2px; text-align: left;">Female Donor Portrait on the east wall in Mogao Cave 144, Middle Tang(AD 767-827)</p>
+
+				<p style="position: absolute; top:120px;width:240px;left:280px;">The Han women in the Tubo period still dominated by Han suits, with a hair bun on their heads, a hairpin Buyao on their hairpins, decorated with a peony flower, and wearing a wide sleeve red blouse on top, and a long green skirt on the bottom. From hair accessories to jackets, they attach great importance to the overall color matching</p>
+				<img src="pages/tang.png" alt="tag2" style="position:absolute;bottom:20px;right:20px;width: 80px">
+			</div>
+			<div class="page" style="background-image:url(pages/even.png)">
+				<div class="img-magnifier-window" style="position:absolute;left:40px;top:80px;">
+ 					 <img id="myimage6" src="pages/Female-Donor-Portrait-on-the-east-wall-in-Mogao-Cave-144.JPG" height="400" >
+				</div>
+				<img src="pages/female-donor-body1.gif" alt="female donor3" style="position:absolute;top:80px;right:80px;height: 200px;">
+				<img src="pages/female-donor-body2.gif" alt="female donor3" style="position:absolute;top:280px;right:80px;height: 200px;">
+				<img src="pages/tag.png" alt="tag2" style="position:absolute;bottom:50px;right:20px;width: 500px">
+			</div>
+			<div class="page" style="background-image:url(pages/odd.png)">
+				<h2>Male Donor Costumes</h2>
+				<div class="img-magnifier-window" style="left:40px;top:80px;">
+ 					 <img id="myimage7" src="pages/Donor-CaoYijin1.png" width="200px">
+				</div>
+				<p style="font-size:16px;position:absolute;left:40px;bottom:20px;width:200px; text-indent: 0px; border:2px solid black; background-color: white;padding: 2px; text-align: left;">Donor CaoYijin on the south wall of the corridor in Yulin Cave 16, Five Dynasties(AD 907-960)</p>
+
+				<p style="position: absolute; top:120px;width:240px;left:280px;">CaoYijin wore an official hat, a red gown with a round neck and large sleeves, a lace white leno blouse, and a red leather tunic. People wearing big sleeves in five dynasties are mostly high-ranking officials, and there is no difference in official positions in other clothes styles. Red was a favorite color of senior officials during the Five Dynasties. Most of the donors of the ruling class in the five dynasties in Dunhuang frescoes wore red robes.</p>
+				<img src="pages/wudai.png" alt="tag2" style="position:absolute;bottom:20px;right:0px;width: 150px">
+			</div>
+			<div class="page" style="background-image:url(pages/even.png)">
+				<div class="img-magnifier-window" style="position:absolute;left:40px;top:80px;">
+ 					 <img id="myimage8" src="pages/Donor-CaoYijin.JPG" height="400" >
+				</div>
+				<img src="pages/caoyijin-body1.gif" alt="male donor1" style="position:absolute;top:80px;right:100px;height: 200px;">
+				<img src="pages/caoyijin-body2.gif" alt="male donor1" style="position:absolute;top:280px;right:100px;height: 200px;">
+				<img src="pages/tag.png" alt="tag2" style="position:absolute;bottom:50px;right:20px;width: 500px">
+			</div>
+			<div class="page" style="background-image:url(pages/odd.png)">
+				<div class="img-magnifier-window" style="left:40px;top:100px;">
+ 					 <img id="myimage9" src="pages/Turpan-Tsenpo-in-Mogao-Cave-159.png" width="220px">
+				</div>
+				<p style="font-size:16px;position:absolute;left:40px;bottom:50px;width:220px; text-indent: 0px; border:2px solid black; background-color: white;padding: 2px; text-align: left;">Turpan Tsenpo in Mogao Cave 159</p>
+
+				<p style="position: absolute; top:120px;width:240px;left:280px;">Zampe wears a crown of Zhaoxia and a red forehead, hangs earrings. He wears a plain lapel Tibetan robe with long sleeves hanging down to the ground, a jade belt around the waist, and various ornaments on the belt. A canopy was over his head. The color of his robe reflects the custom of Tubo: they respect for plain colors.</p>
+				<img src="pages/tang.png" alt="tag2" style="position:absolute;bottom:20px;right:20px;width: 80px">
+			</div>
+			<div class="page" style="background-image:url(pages/even.png)">
+				<div class="img-magnifier-window" style="position:absolute;left:40px;top:80px;">
+ 					 <img id="myimage10" src="pages/tubo.JPG" height="400" >
+				</div>
+				<img src="pages/tubo-body2.gif" alt="male donor2" style="position:absolute;top:80px;right:100px;height: 200px;">
+				<img src="pages/tubo-body1.gif" alt="male donor2" style="position:absolute;top:280px;right:100px;height: 200px;">
+				<img src="pages/tag.png" alt="tag2" style="position:absolute;bottom:50px;right:20px;width: 500px">
+			</div>
+			<div class="page" style="background-image:url(pages/odd.png)">
+				<div class="img-magnifier-window" style="left:40px;top:100px;">
+ 					 <img id="myimage11" src="pages/WesternXiaKing.jpg" width="250px">
+				</div>
+				<p style="font-size:16px;position:absolute;left:40px;bottom:50px;width:250px; text-indent: 0px; border:2px solid black; background-color: white;padding: 2px; text-align: left;">Western Xia King Donor Portrait in Mogao Cave 409</p>
+
+				<p style="position: absolute; top:120px;width:200px;left:320px;">The Uighur King wore a pointed top hat, dressed in a soap-colored round neck dragon-patterned robe with narrow sleeves. The dragon pattern on the dress is a symbol of power. Until the Ming and Qing emperors' dragon robes and royal palace building utensils and other patterns, the dragons were the main theme.</p>
+				<img src="pages/xixia.png" alt="tag2" style="position:absolute;bottom:20px;right:20px;width: 200px">
+
+			</div>
+			<div class="page" style="background-image:url(pages/even.png)">
+				<div class="img-magnifier-window" style="position:absolute;left:40px;top:80px;">
+ 					 <img id="myimage12" src="pages/xixiaking.JPG" height="400" >
+				</div>
+				<img src="pages/xixia-1.gif" alt="male donor3" style="position:absolute;top:80px;right:120px;height: 200px;">
+				<img src="pages/xixia-2.gif" alt="male donor3" style="position:absolute;top:280px;right:120px;height: 200px;">
+				<img src="pages/tag.png" alt="tag2" style="position:absolute;bottom:50px;right:20px;width: 500px">
+
+			</div>
+			<div class="page" style="background-image:url(pages/cover-back.png)"></div>
+			
+		</div>
+	</div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+  (function() {
+  var landscapeTip;
+   var mobile;
+  if (document.body.clientWidth > 400){
+    mobile = 0;
+
+  }
+ 
+  function createLandscapeTip() {
+    if (!landscapeTip) {
+      landscapeTip = document.createElement('div');
+      landscapeTip.style.background = 'black';
+      landscapeTip.style.position = 'fixed';
+      landscapeTip.style.width = '100%';
+      landscapeTip.style.height = '100%';
+      landscapeTip.style.left = 0;
+      landscapeTip.style.top = 0;
+      landscapeTip.style.textAlign = 'center';
+      landscapeTip.style.zIndex = 99999999999;
+      landscapeTip.style.overflow = 'hidden';
+      landscapeTip.innerHTML = '<div  style="position: absolute; top: 50%;   left: 50%; -webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)"><img style="height:150px" src="data:image/png;base64,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"/><br><div style="height: 1.6rem; color: white; font-size: 18px; text-align: center;">For your better experience, please use landscape</div></div>';
+      document.body.appendChild(landscapeTip);
+
+    }
+  }
+
+  function showLandscapeTip() {
+    if (landscapeTip) {
+      landscapeTip.style.display = 'block';
+    }
+  }
+    function hideLandscapeTip() {
+    if (landscapeTip) {
+      landscapeTip.style.display = 'none';
+    }
+  }
+
+  function updateOrientation() {
+    var orientation = window.orientation;
+    switch (orientation) {
+      case 90:
+      case -90:
+        orientation = 'landscape';
+        hideLandscapeTip();
+        break;
+      default:
+        orientation = 'portrait';
+        showLandscapeTip();
+        break;
+    }
+  }
+
+  function initOrientationChange() {
+    createLandscapeTip();
+    window.addEventListener('orientationchange', updateOrientation, false);
+    landscapeTip.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+    }, false);
+    updateOrientation();
+    // showLandscapeTip(); // debug
+  }
+  initOrientationChange();
+
+})();
+
+//--------------------------------------
+
+   
+
+
+
+magnify("myimage", 3);
+magnify("myimage1", 3);
+magnify("myimage2", 3);
+magnify("myimage3", 3);
+magnify("myimage4", 3);
+magnify("myimage5", 3);
+magnify("myimage6", 3);
+magnify("myimage7", 3);
+magnify("myimage8", 3);
+magnify("myimage9", 3);
+magnify("myimage10", 3);
+magnify("myimage11", 3);
+magnify("myimage12", 3);//magnify
+
+var slideIndex = 1;
+showSlides(slideIndex);//slider-gallery
+
+
+function loadApp() {
+
+	var flipbook = $('.flipbook');
+
+ 	// Check if the CSS was already loaded
+	
+	if (flipbook.width()==0 || flipbook.height()==0) {
+		setTimeout(loadApp, 10);
+		return;
+	}
+
+	$('.flipbook .double').scissor();
+
+	// Create the flipbook
+
+	$('.flipbook').turn({
+			// Elevation
+
+			elevation: 50,
+			
+			// Enable gradients
+
+			gradients: true,
+			
+			// Auto center this flipbook
+
+			autoCenter: false
+
+	});
+}
+
+
+
+// Load the HTML4 version if there's not CSS transform
+
+yepnope({
+	test : Modernizr.csstransforms,
+	yep: ['lib/turn.min.js'],
+	nope: ['lib/turn.html4.min.js'],
+	both: ['lib/scissor.min.js', 'lib/zoom.min.js','css/double-page.css'],
+	complete: loadApp
+});
+
+
+window.onload = function(){ 
+     var audio = document.getElementById('bgmusic');
+     audio.pause();
+        //Mute when open
+}
+
+function playnpause() {
+    var audio = document.getElementById('bgmusic');
+    if (audio.paused) {
+        audio.play();
+        document.getElementById('musicImg').src="cover/play.png";
+    }else{
+        audio.pause();
+        audio.currentTime = 0;//Bgm restart
+        document.getElementById('musicImg').src="cover/stop.png";
+    }
+}
+
+
+
+
+
+</script>
+
+</body>
+</html>
